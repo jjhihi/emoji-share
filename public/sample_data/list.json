@@ -1,0 +1,11 @@
+[{
+        "thumbnail-iamge": "thumb-1.jpg",
+        "description": "1번 이모지 셋",
+        "emoji-file": "thumb-1.jpg.zip"
+    },
+    {
+        "thumbnail-iamge": "thumb-2.jpg",
+        "description": "2번 이모지 셋",
+        "emoji-file": "thumb-2.jpg.zip"
+    }
+]
