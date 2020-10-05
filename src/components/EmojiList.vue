@@ -73,7 +73,8 @@
     data: () => ({
       cards: [], 
       listType: undefined,
-      baseUrl: "https://raw.githubusercontent.com/jjhihi/emoji-share/main/public/sample_data/",
+      //baseUrl: "https://raw.githubusercontent.com/jjhihi/emoji-share/main/public/sample_data/",
+      baseUrl: "/sample_data/",
     }),
     methods: {
       changeListType(key) {
@@ -98,7 +99,8 @@
     },
     beforeCreate(){
        let self = this; 
-       this.$http.get("https://raw.githubusercontent.com/jjhihi/emoji-share/main/public/sample_data/list.json").then(function(response) { 
+       //this.$http.get("https://raw.githubusercontent.com/jjhihi/emoji-share/main/public/sample_data/list.json").then(function(response) { 
+       this.$http.get("/sample_data/list.json").then(function(response) { 
          self.cards= response.data;}
          ).catch(function(error) {
            alert(error);
