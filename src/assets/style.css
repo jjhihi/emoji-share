@@ -1,0 +1,4 @@
+@media (max-width: 599px) and (min-width: 0px) { .test-width {width: 100%; } }
+@media (max-width: 960px) and (min-width: 600px) { .test-width {width: 600px; } }
+@media (max-width: 1264px) and (min-width: 960px) { .test-width {width: 960px; } }
+@media (min-width: 1264px) { .test-width {width: 1264px; } }
