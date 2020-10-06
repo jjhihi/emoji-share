@@ -21,19 +21,33 @@
               :src="baseUrl+card['thumbnail-iamge']"
               class="white--text align-end"
               gradient="to bottom, rgba(0,0,0,.1), rgba(0,0,0,.5)"
-              height="200px"
-            >
+              height="200px" >
               <v-card-title v-text="card.description"></v-card-title>
             </v-img>
 
             <v-card-actions>
               <v-spacer></v-spacer>
 
+              <v-btn icon @click="showExpand(index)" >
+                 <v-icon>{{ show[index] ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+              </v-btn>
+              <v-btn icon @click="callAppShare(index)">
+                <v-icon>mdi-share-variant</v-icon>
+              </v-btn>
               <v-btn icon @click="downloadEmoji(card['emoji-file'])">
                 <v-icon>mdi-download</v-icon>
               </v-btn>
-
             </v-card-actions>
+
+            <v-expand-transition>
+               <div v-show="show[index]">
+                  <v-divider></v-divider>
+
+                  <v-card-text>
+                emoji 다른 사진을 여기에 보여주자.
+                  </v-card-text>
+               </div>
+            </v-expand-transition>
           </v-card>
         </v-col>
       </v-row>
@@ -52,10 +66,15 @@
 
           <v-list-item-content>
             <v-list-item-title v-html="card.description"></v-list-item-title>
-            <v-list-item-subtitle v-html="card.description"></v-list-item-subtitle>
+            <v-list-item-subtitle>
+                emoji 다른 사진을 여기에 보여주자.
+            </v-list-item-subtitle>
           </v-list-item-content>
 
           <v-list-item-action>
+              <v-btn icon @click="callAppShare(index)">
+                <v-icon>mdi-share-variant</v-icon>
+              </v-btn>
             <v-btn icon @click="downloadEmoji(card['emoji-file'])">
               <v-icon color="grey lighten-1">mdi-download</v-icon>
             </v-btn>
@@ -72,13 +91,25 @@
     name: 'EmojiList',
     data: () => ({
       cards: [], 
+      show: [],
       listType: undefined,
       //baseUrl: "https://raw.githubusercontent.com/jjhihi/emoji-share/main/public/sample_data/",
       baseUrl: "/sample_data/",
     }),
     methods: {
+      callAppShare( index ) {
+        console.log(index, this.cards[index]);
+        //window.Android.doShare( arg1, arg2, arg3 ); 
+      },
       changeListType(key) {
         this.listType = key;
+      },
+      showExpand(index) {
+        if(this.show[index]){
+           this.show = new Array(this.show.length).fill(false);
+        }else{
+           this.show = new Array(this.show.length).fill(false).fill(true, index, index+1);
+        }
       },
       downloadEmoji(path) {
         let url = this.baseUrl + path;
@@ -101,8 +132,9 @@
        let self = this; 
        //this.$http.get("https://raw.githubusercontent.com/jjhihi/emoji-share/main/public/sample_data/list.json").then(function(response) { 
        this.$http.get("/sample_data/list.json").then(function(response) { 
-         self.cards= response.data;}
-         ).catch(function(error) {
+         self.cards= response.data;
+         self.show = new Array(response.data.length).fill(false);
+         }).catch(function(error) {
            alert(error);
          });
     },
@@ -111,6 +143,7 @@
        self.listType = "grid";
     },
     updated() {
+console.log("updated", this.show);
     }
   }
 </script>

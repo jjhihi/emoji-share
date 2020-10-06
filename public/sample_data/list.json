@@ -7,5 +7,10 @@
         "thumbnail-iamge": "thumb-2.jpg",
         "description": "2번 이모지 셋",
         "emoji-file": "thumb-2.jpg.zip"
+    },
+    {
+        "thumbnail-iamge": "thumb-3.jpg",
+        "description": "3번 이모지 셋",
+        "emoji-file": "thumb-3.jpg.zip"
     }
 ]
