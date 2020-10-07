@@ -2,9 +2,8 @@
 <v-card class="mx-auto test-width" >
     <v-toolbar
       color="indigo"
-      dark
-    >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      dark>
+      <v-app-bar-nav-icon @click.stop="leftDrawer = !leftDrawer"></v-app-bar-nav-icon>
 
       <v-toolbar-title>Emoji List</v-toolbar-title>
 
@@ -21,38 +20,28 @@
             <v-icon>mdi-view-grid</v-icon>
           </v-btn>
         </v-btn-toggle>
+          <v-btn icon @click.stop="rightDrawer = !rightDrawer">
+            <v-icon>mdi-filter-menu</v-icon>
+          </v-btn>
     </v-toolbar>
+
 <v-navigation-drawer
-      v-model="drawer"
+      v-model="leftDrawer"
       absolute
       temporary
-    >
-      <v-list
-        nav
-        dense
-      >
-        <v-list-item-group
-          active-class="deep-purple--text text--accent-4"
-        >
-          <v-list-item>
-            <v-list-item-title>Foo</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Bar</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Fizz</v-list-item-title>
-          </v-list-item>
-
-          <v-list-item>
-            <v-list-item-title>Buzz</v-list-item-title>
-          </v-list-item>
-        </v-list-item-group>
-      </v-list>
+clipped>
+	  <LeftDrawer/>
     </v-navigation-drawer>
 
+<v-navigation-drawer
+      v-model="rightDrawer"
+      right
+      absolute
+      temporary>
+	  <RightDrawer/>
+    </v-navigation-drawer>
+
+    <Sorting/>
     <v-container fluid>
       <v-row dense v-if="listType == 'grid'">
         <v-col
@@ -158,13 +147,25 @@ color="primary"
 </template>
 
 <script>
+  import Sorting from './Sorting';
+  import LeftDrawer from './LeftDrawer';
+  import RightDrawer from './RightDrawer';
+
   export default {
     name: 'EmojiList',
+
+    components: {
+      Sorting, //Sorting
+      LeftDrawer, //Menu
+      RightDrawer //Filter
+    },
+
     data: () => ({
 fab:false,
       page: 1,
       keyword: "",
-      drawer: false,
+      leftDrawer: false,
+      rightDrawer: false,
       cards: [], 
       show: [],
       listType: undefined,
